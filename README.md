@@ -1,4 +1,4 @@
-# Sistema de Gestión de Estrategias de Respaldo Oracle
+# Oracle Backup Management
 Plataforma web full-stack para la automatización, ejecución y monitoreo de respaldos Oracle mediante RMAN.
 
 ## Descripción General
