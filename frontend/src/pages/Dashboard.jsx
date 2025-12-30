@@ -99,8 +99,8 @@ const Dashboard = () => {
         )}
 
         {/* Tarjetas de estado */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
-            <Grid item xs={12} sm={6} md={3}>
+        <Grid container spacing={4} sx={{ mb: 4 }}>
+            <Grid item xs={12} sm={6} md={4}>
             <Card>
                 <CardContent>
                 <Box display="flex" alignItems="center" gap={2}>
@@ -124,7 +124,7 @@ const Dashboard = () => {
             </Card>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={4}>
             <Card>
                 <CardContent>
                 <Box display="flex" alignItems="center" gap={2}>
@@ -148,7 +148,7 @@ const Dashboard = () => {
             </Card>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={4}>
             <Card>
                 <CardContent>
                 <Box display="flex" alignItems="center" gap={2}>
@@ -169,7 +169,7 @@ const Dashboard = () => {
             </Card>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={4}>
             <Card>
                 <CardContent>
                 <Box display="flex" alignItems="center" gap={2}>

@@ -21,7 +21,8 @@ import {
   Backup as BackupIcon,
   History as HistoryIcon,
   Settings as SettingsIcon,
-  Menu as MenuIcon,
+  ChevronLeft,
+  ChevronRight,
 } from '@mui/icons-material';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -67,6 +68,7 @@ const theme = createTheme({
 });
 
 const drawerWidth = 240;
+const collapsedWidth = 64;
 
 const menuItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
@@ -113,7 +115,7 @@ const NavigationDrawer = ({ open, onClose }) => {
   );
 };
 
-const PermanentDrawer = () => {
+const PermanentDrawer = ({open, onToggle}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -121,15 +123,27 @@ const PermanentDrawer = () => {
     <Drawer
       variant="permanent"
       sx={{
-        display: { xs: 'none', md: 'block' },
+        width: open ? drawerWidth : collapsedWidth,
+        flexShrink: 0,
         '& .MuiDrawer-paper': {
-          boxSizing: 'border-box',
-          width: drawerWidth,
+          width: open ? drawerWidth : collapsedWidth,
+          overflowX: 'hidden',
+          transition: 'width 0.3s',
         },
       }}
       open
     >
-      <Toolbar />
+      <Toolbar 
+        sx={{
+          display: 'flex',
+          justifyContent: open ? 'flex-end' : 'center',
+        }}
+      >
+        <IconButton onClick={onToggle}>
+          {open ? <ChevronLeft/> : <ChevronRight/>}
+        </IconButton>
+      </Toolbar>
+
       <List>
         {menuItems.map((item) => (
           <ListItem
@@ -137,9 +151,23 @@ const PermanentDrawer = () => {
             key={item.text}
             selected={location.pathname === item.path}
             onClick={() => navigate(item.path)}
+            sx={{
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
+            <Tooltip title={!open ? item.text : ''} placement="right">
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 2 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                {item.icon}
+              </ListItemIcon>
+            </Tooltip>
+            {open && <ListItemText primary={item.text} />}
           </ListItem>
         ))}
       </List>
@@ -148,11 +176,11 @@ const PermanentDrawer = () => {
 };
 
 const Layout = ({ children }) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const toggleDrawer = () => {
+    setDrawerOpen((prev) => !prev);
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -162,20 +190,16 @@ const Layout = ({ children }) => {
       <AppBar
         position="fixed"
         sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
+          width: {
+            md: `calc(100% - ${drawerOpen ? drawerWidth : collapsedWidth}px)`
+          },
+          ml: {
+            md: `${drawerOpen ? drawerWidth : collapsedWidth}px`
+          },
+          transition: 'width 0.3s, margin 0.3s',
         }}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar>          
           <Typography variant="h6" noWrap component="div">
             Sistema de Gestión de Respaldo Oracle
           </Typography>
@@ -187,8 +211,8 @@ const Layout = ({ children }) => {
         component="nav"
         sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
       >
-        <NavigationDrawer open={mobileOpen} onClose={handleDrawerToggle} />
-        <PermanentDrawer />
+        <NavigationDrawer open={drawerOpen} onClose={toggleDrawer} />
+        <PermanentDrawer open={drawerOpen} onToggle={toggleDrawer} />
       </Box>
 
       {/* Main Content */}
@@ -197,7 +221,8 @@ const Layout = ({ children }) => {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerOpen ? drawerWidth : collapsedWidth}px)` },
+          transition: 'width 0.3s',
         }}
       >
         <Toolbar />
