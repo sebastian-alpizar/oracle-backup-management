@@ -220,7 +220,7 @@ Flujo General
 - El DBA consulta resultados en tiempo real
 
 ## Ejemplos Visuales
-![System](docs/images/system.png)
+![System](docs/images/backup.png)
 
 ## Despliegue
 
