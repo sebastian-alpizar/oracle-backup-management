@@ -2,7 +2,7 @@
 Plataforma web full-stack para la automatización, ejecución y monitoreo de respaldos Oracle mediante RMAN.
 
 ## Descripción General
-El Sistema de Gestión de Estrategias de Respaldo Oracle es una aplicación web tipo Single Page Application (SPA) diseñada para administradores de bases de datos (DBAs), cuyo objetivo es automatizar completamente el ciclo de vida de los respaldos Oracle.
+Oracle Backup Management es una aplicación web tipo Single Page Application (SPA) diseñada para administradores de bases de datos (DBAs), cuyo objetivo es automatizar completamente el ciclo de vida de los respaldos Oracle.
 
 El sistema permite diseñar, programar, ejecutar y monitorear estrategias de respaldo de forma centralizada, reduciendo errores humanos, mejorando la trazabilidad y garantizando notificaciones automáticas ante cualquier evento crítico.
 
